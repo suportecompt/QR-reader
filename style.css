@@ -1,0 +1,112 @@
+:root { --primary: #2563eb; --success: #059669; --error: #dc2626; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 1rem; box-sizing: border-box; }
+
+/* Tarjeta principal amplia */
+.card { background: white; padding: 1.5rem; border-radius: 1.5rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); width: 100%; max-width: 700px; text-align: center; transition: all 0.3s ease; }
+
+h1 { font-size: 1.5rem; color: #1e293b; margin-bottom: 0.5rem; }
+p { color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem; }
+#drop-zone { border: 3px dashed #cbd5e1; border-radius: 1rem; padding: 3rem 1rem; cursor: pointer; background: #f8fafc; transition: 0.3s; position: relative; }
+#drop-zone:hover { border-color: var(--primary); background: #eff6ff; }
+#drop-zone.dragover { border-color: var(--primary); background: #dbeafe; transform: scale(1.02); }
+#status { margin-top: 1.5rem; padding: 1rem; border-radius: 0.75rem; font-size: 0.9rem; display: none; line-height: 1.5; font-weight: 500; word-break: break-all; }
+#file-input { display: none; }
+.loader { border: 3px solid #f3f3f3; border-top: 3px solid var(--primary); border-radius: 50%; width: 18px; height: 18px; animation: spin 1s linear infinite; display: inline-block; margin-right: 8px; vertical-align: middle; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+canvas { display: none; }
+
+/* Interfaz de recorte y PDF */
+#crop-container { display: none; margin-top: 1rem; }
+#pdf-controls { display: none; justify-content: center; gap: 15px; margin-bottom: 10px; align-items: center; }
+.page-btn { background: #e2e8f0; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-weight: bold; color: #475569; }
+.page-btn:hover:not(:disabled) { background: #cbd5e1; }
+.page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+#page-info { font-weight: bold; color: #1e293b; font-size: 0.9rem; }
+
+/* MODIFICADO: Contenedor mucho más alto para que la imagen se expanda al máximo */
+.img-container { 
+    width: 100%; 
+    height: 70vh; /* Altura dinámica basada en la pantalla */
+    min-height: 450px; /* Altura mínima garantizada */
+    margin-bottom: 1rem; 
+    background: #000; 
+    border-radius: 0.5rem; 
+    overflow: hidden;
+}
+
+/* MODIFICADO: Dejamos que CropperJS maneje las dimensiones internas sin restricciones de flexbox */
+#image-to-crop { 
+    display: block; 
+    max-width: 100%; 
+}
+
+.btn-group { display: flex; gap: 10px; justify-content: center; }
+.btn { padding: 0.75rem 1.5rem; border: none; border-radius: 0.5rem; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; flex: 1; }
+.btn-scan { background-color: var(--primary); }
+.btn-scan:hover { background-color: #1d4ed8; }
+.btn-cancel { background-color: #64748b; }
+.btn-cancel:hover { background-color: #475569; }
+
+/* Diseño del selector Cropper Limpio e Interactivo */
+.cropper-view-box { outline: none !important; border: 2px solid var(--primary) !important; border-radius: 6px !important; }
+
+/* Puntos circulares perfectos */
+.cropper-point { 
+    background-color: var(--primary) !important; 
+    opacity: 1 !important; 
+    width: 12px !important; 
+    height: 12px !important; 
+    border-radius: 50% !important;
+}
+
+/* CENTRADO MATEMÁTICO: Desplazamos exactamente la mitad de su tamaño (6px) */
+.cropper-point.point-e { right: -6px !important; margin-top: -6px !important; }
+.cropper-point.point-n { top: -6px !important; margin-left: -6px !important; }
+.cropper-point.point-w { left: -6px !important; margin-top: -6px !important; }
+.cropper-point.point-s { bottom: -6px !important; margin-left: -6px !important; }
+.cropper-point.point-ne { right: -6px !important; top: -6px !important; }
+.cropper-point.point-nw { left: -6px !important; top: -6px !important; }
+.cropper-point.point-sw { left: -6px !important; bottom: -6px !important; }
+.cropper-point.point-se { right: -6px !important; bottom: -6px !important; }
+
+/* Ocultar líneas sólidas y guías punteadas interiores para mantenerlo limpio */
+.cropper-line { background-color: transparent !important; opacity: 0 !important; }
+.cropper-dashed, .cropper-center { display: none !important; }
+.cropper-modal { opacity: 0.7 !important; }
+
+/* Estilos específicos del Login */
+.login-form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1rem; 
+    margin-top: 1.5rem; 
+}
+
+.login-form input { 
+    padding: 0.75rem; 
+    border: 2px solid #cbd5e1; 
+    border-radius: 0.5rem; 
+    outline: none; 
+    font-size: 1rem;
+    transition: 0.2s; 
+}
+
+.login-form input:focus { 
+    border-color: var(--primary); 
+}
+
+.error-msg { 
+    color: var(--error); 
+    font-size: 0.85rem; 
+    display: none; 
+    margin-top: 0.5rem; 
+    font-weight: bold;
+}
+
+#btn-logout {
+    font-size: 0.8rem;
+    padding: 5px 12px;
+}
+#btn-logout:hover {
+    background-color: #fee2e2;
+}

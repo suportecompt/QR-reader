@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner Maestro Fusionado Pro - Soporte PDF Multilinea</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+    if (!localStorage.getItem('supabase_token')) {
+        window.location.href = "index.html";
+    }
+</script>
+
+<div class="card">
+    <div style="text-align: right; margin-bottom: 10px;">
+        <button id="btn-logout" class="page-btn" style="color: var(--error); border: 1px solid #fed7d7;">Cerrar Sesión</button>
+    </div>
+
+    <h1>Lector Inteligente v6.5</h1>
+    <p>Sube imágenes o PDFs (Multilinea)</p>
+
+    <div id="drop-zone">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:10px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <div id="text-prompt">Arrastra o haz clic para subir</div>
+    </div>
+
+    <div id="crop-container">
+        <div id="pdf-controls">
+            <button id="btn-prev" class="page-btn">⬅️</button>
+            <span id="page-info">1 / 1</span>
+            <button id="btn-next" class="page-btn">➡️</button>
+        </div>
+
+        <div class="img-container">
+            <img id="image-to-crop" src="">
+        </div>
+        <div class="btn-group">
+            <button id="btn-cancel" class="btn btn-cancel">Cancelar</button>
+            <button id="btn-scan" class="btn btn-scan">Escanear Selección</button>
+        </div>
+    </div>
+
+    <input type="file" id="file-input" accept="application/pdf, image/*">
+    <div id="status"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+<script src="config.js"></script>
+<script src="scanner.js"></script>
+
+<script>
+    // Lógica del botón de salir
+    document.getElementById('btn-logout').onclick = () => {
+        localStorage.removeItem('supabase_token');
+        window.location.href = "index.html";
+    };
+</script>
+
+</body>
+</html>
