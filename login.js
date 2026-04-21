@@ -1,4 +1,4 @@
-// 1. Redirección automática si ya hay sesión guardada
+// 1. Redirecionamento automático se já houver sessão guardada
 if (localStorage.getItem('supabase_token')) {
     window.location.href = "scanner.html";
 }
@@ -11,9 +11,9 @@ document.getElementById('btn-login').onclick = async () => {
 
     if (!user || !pass) return;
 
-    // Feedback visual de carga
+    // Feedback visual de carregamento
     btn.disabled = true;
-    btn.innerText = "Verificando...";
+    btn.innerText = "A verificar...";
 
     try {
         const response = await fetch(`${CONFIG.SUPABASE_URL}${CONFIG.ENDPOINTS.LOGIN}`, {
@@ -31,30 +31,30 @@ document.getElementById('btn-login').onclick = async () => {
         const data = await response.json();
 
         if (response.ok) {
-            // Guardamos el token en localStorage para persistencia (y le añadimos "Bearer " por si acaso, 
-            // aunque Supabase a veces lo pide y a veces no, es el estándar seguro)
+            // Guardamos o token no localStorage para persistência (e adicionamos "Bearer " por precaução, 
+            // embora o Supabase por vezes peça e outras não, é o padrão seguro)
             localStorage.setItem('supabase_token', 'Bearer ' + data.access_token);
             
-            // Redirigimos al escáner
+            // Redirecionamos para o scanner
             window.location.href = "scanner.html";
         } else {
-            // Error de autenticación
-            throw new Error(data.error_description || data.error || "Error al iniciar sesión");
+            // Erro de autenticação
+            throw new Error(data.error_description || data.error || "Erro ao iniciar sessão");
         }
 
     } catch (err) {
-        console.error("Error de login:", err);
-        // 2. Mostrar el mensaje de error real en la pantalla
+        console.error("Erro de login:", err);
+        // 2. Mostrar a mensagem de erro real no ecrã
         errorMsg.innerText = err.message; 
         errorMsg.style.display = "block";
         setTimeout(() => { errorMsg.style.display = "none"; }, 3000);
     } finally {
         btn.disabled = false;
-        btn.innerText = "Entrar al Sistema";
+        btn.innerText = "Entrar no Sistema";
     }
 };
 
-// 3. Permitir el uso de Enter solo cuando se está escribiendo en los inputs
+// 3. Permitir o uso do Enter apenas quando se está a escrever nos inputs
 const inputs = document.querySelectorAll('#username, #password');
 inputs.forEach(input => {
     input.addEventListener('keypress', (e) => {
