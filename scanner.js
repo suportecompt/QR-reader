@@ -249,7 +249,7 @@ async function runFusionScan(sourceCanvas, fullImageCanvas) {
 
             if (!docData) {
                 showStatus("✅ Sucesso! (Não é QR fiscal)<br>" + code.data, "var(--success)");
-                if (code.data.startsWith('http')) setTimeout(() => window.location.href = code.data, 1500);
+                //if (code.data.startsWith('http')) setTimeout(() => window.location.href = code.data, 1500);
                 return; 
             }
 
